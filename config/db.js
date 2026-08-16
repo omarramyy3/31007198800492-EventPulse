@@ -5,7 +5,7 @@ const connectDB = async () => {
 
   if (!uri) {
     console.error('[db] MONGODB_URI is not set. Check your .env file.');
-    process.exit(1);
+    throw new Error('MONGODB_URI is not set');
   }
 
   try {
@@ -15,7 +15,7 @@ const connectDB = async () => {
     return conn;
   } catch (err) {
     console.error(`[db] MongoDB connection failed: ${err.message}`);
-    process.exit(1);
+    throw err;
   }
 };
 

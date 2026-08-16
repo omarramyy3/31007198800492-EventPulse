@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./config/swagger');
+const connectDB = require('./config/db');
 
 const authRoutes = require('./routes/authRoutes');
 const eventRoutes = require('./routes/eventRoutes');
@@ -15,21 +16,14 @@ const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
 
+connectDB().catch((err) => console.error('[db] connection error:', err.message));
+
 app.use(cors());
 app.use(express.json());
 if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));
 }
 
-/**
- * @swagger
- * /health:
- *   get:
- *     summary: Health check - confirms server and database status
- *     tags: [Health]
- *     responses:
- *       200: { description: Server is up }
- */
 app.get('/health', (req, res) => {
   const dbState = mongoose.connection.readyState;
   res.status(200).json({
