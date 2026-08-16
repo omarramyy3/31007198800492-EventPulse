@@ -16,13 +16,20 @@ const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
 
-connectDB().catch((err) => console.error('[db] connection error:', err.message));
-
 app.use(cors());
 app.use(express.json());
 if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));
 }
+
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
 
 app.get('/health', (req, res) => {
   const dbState = mongoose.connection.readyState;
