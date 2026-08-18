@@ -10,6 +10,17 @@ search, sign-ups with a max capacity, live announcements using
 WebSockets, and the usual stuff you need to make an API actually work
 properly - checking input is valid, handling errors, tests, and docs.
 
+## Links
+
+- **Repo:** https://github.com/omarramyy3/31007198800492-EventPulse
+- **Live app:** https://31007198800492-event-pulse-hr4cl1qzm-omar-ramy.vercel.app
+- **Health check:** https://31007198800492-event-pulse-hr4cl1qzm-omar-ramy.vercel.app/health
+- **API docs:** https://31007198800492-event-pulse-hr4cl1qzm-omar-ramy.vercel.app/api-docs
+
+(Vercel's free tier can generate a new URL per deployment, so if this
+link ever looks dead, check the project's dashboard for whatever the
+current one is.)
+
 ## What it's built with
 
 - **Node.js / Express** - the actual API
@@ -19,7 +30,7 @@ properly - checking input is valid, handling errors, tests, and docs.
 - **express-validator** - stops bad input before it breaks anything
 - **Socket.io** - the real-time announcements part
 - **Jest + Supertest** - for running tests
-- **Swagger UI** - auto-generated docs you can click through at `/api-docs`
+- **Swagger UI** - auto-generated docs at `/api-docs`
 
 ## How the folders are organized
 
@@ -103,17 +114,17 @@ Tests:       13 passed, 13 total
 ## Where it's deployed
 
 Hosted on Vercel, database is on MongoDB Atlas. The environment
-variables are set directly in Vercel's settings, not in the code.
+variables are set directly in Vercel's project settings, not in the
+code.
 
-One thing worth mentioning - Vercel doesn't keep servers running all the
-time the way Socket.io kind of expects, so the live announcements might
-not always work perfectly once deployed. The regular API stuff works
-fine though. Just being honest about it instead of pretending it's not
-an issue.
+A couple of honest notes on things that don't fully work the same way
+they do locally, once deployed to a serverless platform like Vercel:
 
-- **Live app:** `<add your Vercel URL here>`
-- **Health check:** `<your-url>/health`
-- **API docs:** `<your-url>/api-docs`
+- **Socket.io** - Vercel doesn't keep a server running all the time the
+  way Socket.io expects, so the live announcements feature might not
+  behave consistently once deployed. The regular REST API works fine.
+
+Being upfront about these instead of pretending they're not there.
 
 ## Git stuff
 
